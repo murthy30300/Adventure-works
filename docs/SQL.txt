@@ -1,0 +1,74 @@
+USE awdb30300;
+GO
+DROP VIEW IF EXISTS dbo.calendar;
+DROP VIEW IF EXISTS dbo.customers;
+DROP VIEW IF EXISTS dbo.products;
+DROP VIEW IF EXISTS dbo.returns;
+DROP VIEW IF EXISTS dbo.sales;
+DROP VIEW IF EXISTS dbo.subcat;
+DROP VIEW IF EXISTS dbo.territories;
+GO
+CREATE SCHEMA gold;
+GO
+-- Calendar View
+CREATE VIEW gold.calendar AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/AdventureWorks_Calendar',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Customers View
+CREATE VIEW gold.customers AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/AdventureWorks_Customers',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Products View
+CREATE VIEW gold.products AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/AdventureWorks_Products',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Returns View
+CREATE VIEW gold.returns AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/Returns/',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Sales View
+CREATE VIEW gold.sales AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/AdventureWorks_Sales/',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Product Subcategories View
+CREATE VIEW gold.subcat AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/Product_Subcategories/',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
+
+-- Territories View
+CREATE VIEW gold.territories AS
+SELECT * 
+FROM OPENROWSET (
+    BULK 'https://awstorage30300.blob.core.windows.net/silver-container/AdventureWorks_Territories/',
+    FORMAT = 'PARQUET'
+) AS QUER1;
+GO
